@@ -978,7 +978,7 @@ export default function Admin() {
                             {item.image ? (
 
                               <img
-                                src={`http://localhost:5000/uploads/${item.image}`}
+                                src={`${import.meta.env.VITE_API_URL}/uploads/${item.image}`}
                                 alt={
                                   item.foodName ||
                                   "Food donation"
