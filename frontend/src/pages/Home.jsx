@@ -321,10 +321,14 @@ const handleSubmit = async (e) => {
                   </label>
 
                   <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
-                  />
+  type="email"
+  name="email"
+  value={formData.email}
+  placeholder="Enter your email"
+  onChange={handleChange}
+  required
+  className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
+/>
 
                 </div>
 
@@ -338,24 +342,27 @@ const handleSubmit = async (e) => {
                   </label>
 
                   <input
-                    type="password"
-                    placeholder="Enter your password"
-                    className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
-                  />
+  type={showPassword ? "text" : "password"}
+  name="password"
+  value={formData.password}
+  placeholder="Enter your password"
+  onChange={handleChange}
+  required
+  className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
+/>
 
                 </div>
 
 
                 {/* GOES TO REAL LOGIN PAGE */}
-                <Link to="/login">
-
-                  <button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold text-lg shadow-md transition">
-
-                    Login
-
-                  </button>
-
-                </Link>
+                <button
+  type="submit"
+  onClick={handleSubmit}
+  disabled={loading}
+  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-4 rounded-xl font-bold text-lg shadow-md transition"
+>
+  {loading ? "Logging in..." : "Login"}
+</button>
 
 
                 <div className="text-center pt-2">
