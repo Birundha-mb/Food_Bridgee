@@ -10,6 +10,45 @@ export default function Home() {
     peopleFed: 0,
     foodSaved: 0,
   });
+  const [formData, setFormData] = useState({
+  email: "",
+  password: "",
+});
+
+const [loading, setLoading] = useState(false);
+const [showPassword, setShowPassword] = useState(false);
+
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    setLoading(true);
+
+    const response = await loginUser(formData);
+
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+
+    alert("Login Successful");
+
+    window.location.href = "/dashboard";
+
+  } catch (error) {
+    alert(
+      error.response?.data?.message ||
+      "Something went wrong. Please try again."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
 
     const fetchStats = async () => {
