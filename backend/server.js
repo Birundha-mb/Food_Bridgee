@@ -1,98 +1,46 @@
 require("dotenv").config();
+
 const express = require("express");
-
-const statsRoutes = require("./routes/statsRoutes");
-
 const mongoose = require("mongoose");
-
 const cors = require("cors");
 
-const http = require("http");
-
-const { Server } = require("socket.io");
-
+const statsRoutes = require("./routes/statsRoutes");
 const authRoutes = require("./routes/authRoutes");
-
 const donationRoutes = require("./routes/donationRoutes");
 
 const app = express();
 
-const server = http.createServer(app);
-
-const io = new Server(server, {
-
-  cors: {
-    origin: "http://localhost:5173",
-  },
-
-});
-
-global.io = io;
-
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.APPLICATION_URL || "http://localhost:5173",
+  })
+);
 
 app.use(express.json());
 
-app.use(
-  "/uploads",
-  express.static("uploads")
-);
+app.use("/uploads", express.static("uploads"));
 
-mongoose.connect(
-  "mongodb://127.0.0.1:27017/foodbridge"
-)
-.then(() => {
+// MongoDB Atlas connection
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("MongoDB Connected");
+  })
+  .catch((err) => {
+    console.log("MongoDB Connection Error:", err);
+  });
 
-  console.log("MongoDB Connected");
-
-})
-.catch((err) => {
-
-  console.log(err);
-
-});
-
+// Routes
 app.use("/api/auth", authRoutes);
-
-app.use(
-  "/api/donations",
-  donationRoutes
-);
-
+app.use("/api/donations", donationRoutes);
 app.use("/api/stats", statsRoutes);
 
-io.on("connection", (socket) => {
-
-  console.log("User Connected");
-  socket.on(
-  "sendMessage",
-  (data) => {
-
-    io.emit(
-  "receiveMessage",
-  data
-);
-
-  }
-);
-socket.on(
-  "sendNotification",
-  (data) => {
-
-    io.emit(
-      "notification",
-      data
-    );
-
-  }
-);
-
+// Test route
+app.get("/", (req, res) => {
+  res.json({
+    message: "FoodBridge Backend is running",
+  });
 });
 
-server.listen(5000, () => {
-
-  console.log(
-    "Server running on 5000"
-  );
-
-});
+// Export app for Vercel
+module.exports = app;
