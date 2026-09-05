@@ -58,7 +58,7 @@ export default function DonationMap({
             <div>
 
               <img
-                src={`http://localhost:5000/uploads/${item.image}`}
+                src={`${import.meta.env.VITE_API_URL}/uploads/${item.image}`}
                 alt=""
                 className="w-full h-[120px] object-cover rounded-lg mb-2"
               />
