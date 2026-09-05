@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getStats } from "../services/statsService";
+import { loginUser } from "../services/authService";
 
 export default function Home() {
   const [stats, setStats] = useState({
