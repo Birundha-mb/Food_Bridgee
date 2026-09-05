@@ -10,66 +10,62 @@ export default function Home() {
     peopleFed: 0,
     foodSaved: 0,
   });
+
   const [formData, setFormData] = useState({
-  email: "",
-  password: "",
-});
-
-const [loading, setLoading] = useState(false);
-const [showPassword, setShowPassword] = useState(false);
-
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.name]: e.target.value,
+    email: "",
+    password: "",
   });
-};
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  try {
-    setLoading(true);
-
-    const response = await loginUser(formData);
-
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("user", JSON.stringify(response.data.user));
-
-    alert("Login Successful");
-
-    window.location.href = "/dashboard";
-
-  } catch (error) {
-    alert(
-      error.response?.data?.message ||
-      "Something went wrong. Please try again."
-    );
-  } finally {
-    setLoading(false);
-  }
-};
   useEffect(() => {
-
     const fetchStats = async () => {
-
       try {
-
         const response = await getStats();
-
         setStats(response.data);
-
       } catch (error) {
-
         console.log("Error loading statistics:", error);
-
       }
-
     };
 
     fetchStats();
-
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      const response = await loginUser(formData);
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
+      alert("Login Successful");
+
+      window.location.href = "/dashboard";
+    } catch (error) {
+      alert(
+        error.response?.data?.message ||
+        "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f7fbf8] text-slate-800">
 
@@ -88,50 +84,34 @@ const handleSubmit = async (e) => {
 
         </Link>
 
-
         {/* NAVIGATION */}
         <div className="hidden md:flex gap-8 text-sm font-semibold text-slate-600">
 
-          <a
-            href="#home"
-            className="hover:text-green-600 transition"
-          >
+          <a href="#home" className="hover:text-green-600 transition">
             Home
           </a>
 
-          <a
-            href="#about"
-            className="hover:text-green-600 transition"
-          >
+          <a href="#about" className="hover:text-green-600 transition">
             About
           </a>
 
-          <a
-            href="#how"
-            className="hover:text-green-600 transition"
-          >
+          <a href="#how" className="hover:text-green-600 transition">
             How It Works
           </a>
 
-          <a
-            href="#contact"
-            className="hover:text-green-600 transition"
-          >
+          <a href="#contact" className="hover:text-green-600 transition">
             Contact
           </a>
 
         </div>
 
-
-        {/* LOGIN / REGISTER */}
+        {/* REGISTER */}
         <div className="flex gap-3">
 
           <Link to="/register">
 
             <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold shadow-md transition">
-
               Register
-
             </button>
 
           </Link>
@@ -149,21 +129,16 @@ const handleSubmit = async (e) => {
 
         <div className="grid md:grid-cols-2 items-center gap-12">
 
-
           {/* LEFT SIDE */}
           <div>
 
             <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
-
               🌱 One Donation, Many Smiles
-
             </div>
-
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-slate-900">
 
               Share Food
-
               <br />
 
               <span className="text-green-600">
@@ -172,34 +147,25 @@ const handleSubmit = async (e) => {
 
             </h1>
 
-
             <p className="text-lg md:text-xl text-slate-600 mt-7 leading-relaxed max-w-xl">
-
               Donate surplus food, connect with volunteers,
               and help deliver meals to people who need them.
-
             </p>
-
 
             <div className="flex flex-wrap gap-4 mt-9">
 
-              <Link to="/login">
+              <a href="#login">
 
                 <button className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg transition">
-
                   Donate Food
-
                 </button>
 
-              </Link>
-
+              </a>
 
               <Link to="/register">
 
                 <button className="border-2 border-green-600 text-green-700 hover:bg-green-50 px-8 py-4 rounded-xl font-bold transition">
-
                   Become a Volunteer
-
                 </button>
 
               </Link>
@@ -208,78 +174,95 @@ const handleSubmit = async (e) => {
 
 
             {/* REAL STATISTICS */}
+            <div className="flex flex-wrap gap-8 mt-12">
 
-<div className="flex flex-wrap gap-8 mt-12">
+              <div className="flex items-start gap-3">
 
-  <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
 
-    <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeOuUBJ9VEQdkBW2nYK8We1nP8n8WZw7WIoJzPqpxSHg&s=10"
-        alt="Donations"
-        className="w-6 h-6 object-contain"
-      />
-    </div>
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeOuUBJ9VEQdkBW2nYK8We1nP8n8WZw7WIoJzPqpxSHg&s=10"
+                    alt="Donations"
+                    className="w-6 h-6 object-contain"
+                  />
 
-    <div>
-      <h3 className="text-2xl font-bold text-green-700">
-        {stats.totalDonations}+
-      </h3>
+                </div>
 
-      <p className="text-sm text-gray-500">
-        Total <br /> Donations
-      </p>
-    </div>
+                <div>
 
-  </div>
+                  <h3 className="text-2xl font-bold text-green-700">
+                    {stats.totalDonations}+
+                  </h3>
 
+                  <p className="text-sm text-gray-500">
+                    Total
+                    <br />
+                    Donations
+                  </p>
 
-  <div className="flex items-start gap-3">
+                </div>
 
-    <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6MGRXBxnK8QxC2gaHYXCNncxZ0_GKx-7K9yywSRbLTA&s=10"
-        alt="Volunteers"
-        className="w-6 h-6 object-contain"
-      />
-    </div>
-
-    <div>
-      <h3 className="text-2xl font-bold text-green-700">
-        {stats.totalVolunteers}+
-      </h3>
-
-      <p className="text-sm text-gray-500">
-        Active <br /> Volunteers
-      </p>
-    </div>
-
-  </div>
+              </div>
 
 
-  <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3">
 
-    <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEP56Sh9JuU7wQCgBtNim_vtQKN26AruBr6oeObxEomA&s"
-        alt="People Fed"
-        className="w-6 h-6 object-contain"
-      />
-    </div>
+                <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
 
-    <div>
-      <h3 className="text-2xl font-bold text-green-700">
-        {stats.peopleFed}+
-      </h3>
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6MGRXBxnK8QxC2gaHYXCNncxZ0_GKx-7K9yywSRbLTA&s=10"
+                    alt="Volunteers"
+                    className="w-6 h-6 object-contain"
+                  />
 
-      <p className="text-sm text-gray-500">
-        Estimated <br /> People Fed
-      </p>
-    </div>
+                </div>
 
-  </div>
+                <div>
 
-</div>
+                  <h3 className="text-2xl font-bold text-green-700">
+                    {stats.totalVolunteers}+
+                  </h3>
+
+                  <p className="text-sm text-gray-500">
+                    Active
+                    <br />
+                    Volunteers
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div className="flex items-start gap-3">
+
+                <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center text-xl">
+
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEP56Sh9JuU7wQCgBtNim_vtQKN26AruBr6oeObxEomA&s"
+                    alt="People Fed"
+                    className="w-6 h-6 object-contain"
+                  />
+
+                </div>
+
+                <div>
+
+                  <h3 className="text-2xl font-bold text-green-700">
+                    {stats.peopleFed}+
+                  </h3>
+
+                  <p className="text-sm text-gray-500">
+                    Estimated
+                    <br />
+                    People Fed
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -287,84 +270,97 @@ const handleSubmit = async (e) => {
           {/* RIGHT SIDE - LOGIN CARD */}
           <div className="flex justify-center">
 
-            <div className="w-full max-w-[450px] bg-white p-8 md:p-10 rounded-[30px] shadow-2xl border border-green-100">
+            <div
+              id="login"
+              className="w-full max-w-[450px] bg-white p-8 md:p-10 rounded-[30px] shadow-2xl border border-green-100"
+            >
 
               <div className="text-center mb-8">
 
-                
-
-
                 <h2 className="text-3xl font-bold text-slate-800">
-
                   Welcome Back
-
                 </h2>
 
-
                 <p className="text-gray-500 mt-2">
-
                   Be the Reason Someone Smiles Today!
-
                 </p>
 
               </div>
 
 
-              <div className="flex flex-col gap-5">
+              {/* REAL LOGIN FORM */}
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-5"
+              >
 
+                {/* EMAIL */}
                 <div>
 
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-
                     Email Address
-
                   </label>
 
                   <input
-  type="email"
-  name="email"
-  value={formData.email}
-  placeholder="Enter your email"
-  onChange={handleChange}
-  required
-  className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
-/>
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    placeholder="Enter your email"
+                    onChange={handleChange}
+                    required
+                    className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
+                  />
 
                 </div>
 
 
+                {/* PASSWORD */}
                 <div>
 
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-
                     Password
-
                   </label>
 
-                  <input
-  type={showPassword ? "text" : "password"}
-  name="password"
-  value={formData.password}
-  placeholder="Enter your password"
-  onChange={handleChange}
-  required
-  className="w-full p-4 border border-gray-200 rounded-xl outline-none focus:border-green-500"
-/>
+                  <div className="relative">
+
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      placeholder="Enter your password"
+                      onChange={handleChange}
+                      required
+                      className="w-full p-4 pr-16 border border-gray-200 rounded-xl outline-none focus:border-green-500"
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowPassword(!showPassword)
+                      }
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 font-semibold hover:text-green-600"
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+
+                  </div>
 
                 </div>
 
 
-                {/* GOES TO REAL LOGIN PAGE */}
+                {/* LOGIN BUTTON */}
                 <button
-  type="submit"
-  onClick={handleSubmit}
-  disabled={loading}
-  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-4 rounded-xl font-bold text-lg shadow-md transition"
->
-  {loading ? "Logging in..." : "Login"}
-</button>
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-4 rounded-xl font-bold text-lg shadow-md transition"
+                >
+
+                  {loading ? "Logging in..." : "Login"}
+
+                </button>
 
 
+                {/* REGISTER */}
                 <div className="text-center pt-2">
 
                   <p className="text-gray-500">
@@ -375,16 +371,14 @@ const handleSubmit = async (e) => {
                       to="/register"
                       className="text-green-600 font-bold ml-2 hover:underline"
                     >
-
                       Create an account
-
                     </Link>
 
                   </p>
 
                 </div>
 
-              </div>
+              </form>
 
             </div>
 
@@ -405,33 +399,22 @@ const handleSubmit = async (e) => {
 
           <div className="text-center mb-12">
 
-            {/* <p className="text-green-600 font-bold mb-3">
-
-              SIMPLE PROCESS
-
-            </p> */}
-
-
             <h2 className="text-4xl md:text-5xl font-bold">
-
               How It Works
-
             </h2>
 
-
             <p className="text-gray-500 mt-4 text-lg">
-
-              From surplus food to someone’s plate, FoodBridge makes every donation count. <br/>
-  In four simple steps, donors, administrators and volunteers work together <br/>
-  to collect and deliver food to people who need it the most
-
+              From surplus food to someone’s plate, FoodBridge makes every donation count.
+              <br />
+              In four simple steps, donors, administrators and volunteers work together
+              <br />
+              to collect and deliver food to people who need it the most
             </p>
 
           </div>
 
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
 
             <div className="bg-[#f8fcf9] border border-green-100 rounded-3xl p-7 text-center hover:-translate-y-2 hover:shadow-xl transition duration-300">
 
@@ -444,7 +427,9 @@ const handleSubmit = async (e) => {
               </h3>
 
               <p className="text-gray-500 mt-3 leading-relaxed">
-                Share details about your surplus food, including the food type, quantity, pickup time and location. Your donation request is then submitted to FoodBridge
+                Share details about your surplus food, including the food type,
+                quantity, pickup time and location. Your donation request is then
+                submitted to FoodBridge
               </p>
 
             </div>
@@ -461,7 +446,9 @@ const handleSubmit = async (e) => {
               </h3>
 
               <p className="text-gray-500 mt-3 leading-relaxed">
-                The donation details are reviewed to ensure the food is suitable for sharing. Once verified, the request is matched with an available nearby volunteer
+                The donation details are reviewed to ensure the food is suitable
+                for sharing. Once verified, the request is matched with an
+                available nearby volunteer
               </p>
 
             </div>
@@ -478,7 +465,9 @@ const handleSubmit = async (e) => {
               </h3>
 
               <p className="text-gray-500 mt-3 leading-relaxed">
-                A volunteer accepts the donation request and receives the pickup details. They collect the food from the donor and prepare it for delivery
+                A volunteer accepts the donation request and receives the pickup
+                details. They collect the food from the donor and prepare it
+                for delivery
               </p>
 
             </div>
@@ -495,7 +484,9 @@ const handleSubmit = async (e) => {
               </h3>
 
               <p className="text-gray-500 mt-3 leading-relaxed">
-                The collected food is delivered to people or communities in need. The donation status is updated so the donor can track its journey and impact
+                The collected food is delivered to people or communities in need.
+                The donation status is updated so the donor can track its journey
+                and impact
               </p>
 
             </div>
@@ -510,26 +501,20 @@ const handleSubmit = async (e) => {
       {/* ADVANCED FEATURES */}
       <section
         id="about"
-        className="py-20 px-6 md:px-14 bg-white py-16 px-6 md:px-14"
+        className="py-20 px-6 md:px-14 bg-white"
       >
 
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
 
           <div className="bg-gradient-to-br from-green-700 to-green-500 rounded-[35px] p-10 md:p-14 text-white shadow-xl">
 
-            
-
             <h2 className="text-4xl md:text-5xl font-bold mt-4">
-
               More than just food donation.
-
             </h2>
 
             <p className="text-green-50 text-lg mt-6 leading-relaxed">
-
               FoodBridge connects donors, volunteers and administrators
               through a smart real-time platform.
-
             </p>
 
           </div>
@@ -539,9 +524,7 @@ const handleSubmit = async (e) => {
 
             <div className="bg-white rounded-2xl p-6 shadow-sm border">
 
-              <div className="text-3xl">
-                🤖
-              </div>
+              <div className="text-3xl">🤖</div>
 
               <h3 className="font-bold text-xl mt-4">
                 AI Verification
@@ -556,9 +539,7 @@ const handleSubmit = async (e) => {
 
             <div className="bg-white rounded-2xl p-6 shadow-sm border">
 
-              <div className="text-3xl">
-                📍
-              </div>
+              <div className="text-3xl">📍</div>
 
               <h3 className="font-bold text-xl mt-4">
                 Live Tracking
@@ -573,9 +554,7 @@ const handleSubmit = async (e) => {
 
             <div className="bg-white rounded-2xl p-6 shadow-sm border">
 
-              <div className="text-3xl">
-                👥
-              </div>
+              <div className="text-3xl">👥</div>
 
               <h3 className="font-bold text-xl mt-4">
                 Smart Matching
@@ -590,9 +569,7 @@ const handleSubmit = async (e) => {
 
             <div className="bg-white rounded-2xl p-6 shadow-sm border">
 
-              <div className="text-3xl">
-                📊
-              </div>
+              <div className="text-3xl">📊</div>
 
               <h3 className="font-bold text-xl mt-4">
                 Admin Control
@@ -622,27 +599,17 @@ const handleSubmit = async (e) => {
           <div>
 
             <h2 className="text-2xl font-bold">
-
-              Food
-              <span className="text-green-400">
-                Bridge
-              </span>
-
+              Food<span className="text-green-400">Bridge</span>
             </h2>
 
             <p className="text-gray-400 mt-2">
-
               Connecting surplus food with people who need it.
-
             </p>
 
           </div>
 
-
           <p className="text-gray-400 text-sm">
-
             © 2026 FoodBridge. Smart Food Donation Platform.
-
           </p>
 
         </div>
