@@ -449,7 +449,7 @@ export default function Tracking() {
                                 {item.image ? (
 
                                   <img
-                                    src={`http://localhost:5000/uploads/${item.image}`}
+                                    src={`${import.meta.env.VITE_API_URL}/uploads/${item.image}`}
                                     alt={
                                       item.foodName ||
                                       "Food donation"
@@ -694,7 +694,7 @@ export default function Tracking() {
                               {item.image ? (
 
                                 <img
-                                  src={`http://localhost:5000/uploads/${item.image}`}
+                                  src={`${import.meta.env.VITE_API_URL}/uploads/${item.image}`}
                                   alt=""
                                   className="w-14 h-14 rounded-xl object-cover"
                                 />
