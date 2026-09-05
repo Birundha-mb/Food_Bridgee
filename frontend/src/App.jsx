@@ -7,8 +7,6 @@ import {
 
 import Home from "./pages/Home";
 
-import Login from "./pages/Login";
-
 import Register from "./pages/Register";
 
 import DonorDashboard from "./pages/DonorDashboard";
@@ -38,11 +36,6 @@ export default function App() {
         <Route
           path="/"
           element={<Home />}
-        />
-
-        <Route
-          path="/login"
-          element={<Login />}
         />
 
         <Route
