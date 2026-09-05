@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.APPLICATION_URL || "http://localhost:5173",
+    origin: process.env.APPLICATION_URL || "https://frontend-7ucg1hfuq-birundha1.vercel.app/",
   })
 );
 
