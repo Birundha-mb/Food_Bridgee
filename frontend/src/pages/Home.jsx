@@ -86,17 +86,6 @@ export default function Home() {
         {/* LOGIN / REGISTER */}
         <div className="flex gap-3">
 
-          <Link to="/login">
-
-            <button className="border border-green-600 text-green-700 px-5 py-2 rounded-xl font-semibold hover:bg-green-50 transition">
-
-              Login
-
-            </button>
-
-          </Link>
-
-
           <Link to="/register">
 
             <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold shadow-md transition">
