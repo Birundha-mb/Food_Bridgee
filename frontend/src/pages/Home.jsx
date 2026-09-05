@@ -56,6 +56,7 @@ export default function Home() {
       alert("Login Successful");
 
       window.location.href = "/dashboard";
+
     } catch (error) {
       alert(
         error.response?.data?.message ||
@@ -84,7 +85,6 @@ export default function Home() {
 
         </Link>
 
-        {/* NAVIGATION */}
         <div className="hidden md:flex gap-8 text-sm font-semibold text-slate-600">
 
           <a href="#home" className="hover:text-green-600 transition">
@@ -105,15 +105,12 @@ export default function Home() {
 
         </div>
 
-        {/* REGISTER */}
         <div className="flex gap-3">
 
           <Link to="/register">
-
             <button className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl font-semibold shadow-md transition">
               Register
             </button>
-
           </Link>
 
         </div>
@@ -173,7 +170,7 @@ export default function Home() {
             </div>
 
 
-            {/* REAL STATISTICS */}
+            {/* STATISTICS */}
             <div className="flex flex-wrap gap-8 mt-12">
 
               <div className="flex items-start gap-3">
@@ -267,7 +264,7 @@ export default function Home() {
           </div>
 
 
-          {/* RIGHT SIDE - LOGIN CARD */}
+          {/* LOGIN CARD */}
           <div className="flex justify-center">
 
             <div
@@ -288,7 +285,6 @@ export default function Home() {
               </div>
 
 
-              {/* REAL LOGIN FORM */}
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-5"
@@ -348,15 +344,13 @@ export default function Home() {
                 </div>
 
 
-                {/* LOGIN BUTTON */}
+                {/* LOGIN */}
                 <button
                   type="submit"
                   disabled={loading}
                   className="w-full bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white py-4 rounded-xl font-bold text-lg shadow-md transition"
                 >
-
                   {loading ? "Logging in..." : "Login"}
-
                 </button>
 
 
